@@ -20,14 +20,17 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class CheckImg extends HttpServlet {
-	// 集合中保存所有成语
+	// 集合中words，集合中元素的类型是String，保存成语
 		private List<String> words = new ArrayList<String>();
-
+               
+	        //服务器初始化进行的操作
 		@Override
 		public void init() throws ServletException {
 			// 初始化阶段，读取new_words.txt
-			// web工程中读取 文件，必须使用绝对磁盘路径
+			// web工程中读取 文件，必须使用绝对磁盘路径，getServletContext().getRealPath（）方法
 			String path = getServletContext().getRealPath("/WEB-INF/new_words.txt");
+			
+			//使用buffer缓冲池按照行读取文件中的内容
 			try {
 				BufferedReader reader = new BufferedReader(new FileReader(path));
 				String line;
@@ -39,7 +42,8 @@ public class CheckImg extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
+      
+	        //服务器处理get的请求
 		public void doGet(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
 			// 禁止缓存
